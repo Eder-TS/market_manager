@@ -15,6 +15,8 @@ router.post(
   userControllers.createUserController
 );
 
+router.post("/users/login", userControllers.loginUserController);
+
 router.use(authMiddleware);
 
 router.patch("/users", userControllers.updateUserPasswordController);

@@ -1,6 +1,6 @@
 import userRepositories from "../Repositories/usersRepositories.js";
 import bcrypt from "bcrypt";
-import { generateJWT } from "./authService.js";
+import { generateJWT } from "./authServices.js";
 
 async function createUserService(newUser) {
   const { email, password } = newUser;

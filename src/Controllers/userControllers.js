@@ -1,11 +1,23 @@
 import userServices from "../Services/userServices.js";
+import { loginService } from "../Services/authServices.js";
 
 async function createUserController(request, response) {
   const newUser = request.body;
 
   try {
     const token = await userServices.createUserService(newUser);
-    response.status(201).send(token);
+    response.status(201).send({ token });
+  } catch (err) {
+    response.status(400).send(err.message);
+  }
+}
+
+async function loginUserController(request, response) {
+  const { email, password } = request.body;
+
+  try {
+    const token = await loginService(email, password);
+    response.send({ token });
   } catch (err) {
     response.status(400).send(err.message);
   }
@@ -39,6 +51,7 @@ async function deleteUserController(request, response) {
 
 export default {
   createUserController,
+  loginUserController,
   updateUserPasswordController,
   deleteUserController,
 };

@@ -32,7 +32,7 @@ function findUserByEmailRepository(email) {
   return new Promise((resolve, reject) => {
     db.get(
       `
-            SELECT id, email
+            SELECT *
             FROM users
             WHERE email = ?
         `,
