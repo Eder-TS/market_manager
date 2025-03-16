@@ -4,15 +4,15 @@ async function createUserController(request, response) {
   const newUser = request.body;
 
   try {
-    const createdUser = await userServices.createUserService(newUser);
-    response.status(201).send(createdUser);
+    const token = await userServices.createUserService(newUser);
+    response.status(201).send(token);
   } catch (err) {
     response.status(400).send(err.message);
   }
 }
 
 async function updateUserPasswordController(request, response) {
-  const userId = request.params.id;
+  const userId = request.userId;
   const newPassword = request.body.newPassword;
 
   try {
@@ -27,7 +27,7 @@ async function updateUserPasswordController(request, response) {
 }
 
 async function deleteUserController(request, response) {
-  const userId = request.params.id;
+  const userId = request.userId;
 
   try {
     const deleted = await userServices.deleteUserService(userId);
