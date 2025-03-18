@@ -1,7 +1,5 @@
 function currencyConverter(productInCurrency) {
-  console.log(Number(productInCurrency.price));
-  const priceInInteger = Math.round(Number(productInCurrency.price)) * 100;
-  console.log(priceInInteger);
+  const priceInInteger = Math.round(Number(productInCurrency.price) * 100);
   const { price, ...rest } = productInCurrency;
   const productInInteger = { ...rest, priceInInteger };
 
