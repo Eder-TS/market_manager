@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import userRoutes from "./src/Routes/userRoutes.js";
+import productRoutes from "./src/Routes/productRoutes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use(userRoutes);
+app.use(productRoutes);
 
 app.use((req, res) => {
   res.status(404).send({
