@@ -11,8 +11,9 @@ async function loginService(email, password) {
   const user = await usersRepositories.findUserByEmailRepository(email);
   if (!user) throw new Error("Invalid user.");
 
-  const isPasswordvalid = bcrypt.compare(password, user.password);
-  if (!isPasswordvalid) throw new Error("Invalid user.");
+  const encryptedPassword = await bcrypt.hash(password, 10);
+  const isPasswordValid = bcrypt.compare(encryptedPassword, user.password);
+  if (!isPasswordValid) throw new Error("Invalid user.");
 
   return generateJWT(user.id);
 }
