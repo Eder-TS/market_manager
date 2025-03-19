@@ -1,4 +1,4 @@
-import { userIdSchema } from "../Schemas/userSchema.js";
+import { productIdSchema } from "../Schemas/productSchemas.js";
 
 const validate = (schema) => (request, response, next) => {
   try {
@@ -9,14 +9,14 @@ const validate = (schema) => (request, response, next) => {
   }
 };
 
-const validateUserId = (request, response, next) => {
+const validateProductId = (request, response, next) => {
   try {
-    const userId = +request.params.id;
-    userIdSchema.parse({ id: userId });
+    const productId = +request.params.id;
+    productIdSchema.parse({ id: productId });
     next();
   } catch (err) {
     response.status(400).json({ error: err.errors });
   }
 };
 
-export { validate, validateUserId };
+export { validate, validateProductId };
