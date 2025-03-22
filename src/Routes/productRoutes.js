@@ -28,4 +28,11 @@ router.delete(
 
 router.get("/products", productControllers.findAllProductsController);
 
+router.get(
+  "/products/category/:category",
+  productControllers.findProductsByCategoryController
+);
+
+router.get("/products/search", productControllers.findProductsByNameController);
+
 export default router;

@@ -56,9 +56,37 @@ async function findAllProductsController(request, response) {
   }
 }
 
+async function findProductsByCategoryController(request, response) {
+  const category = request.params.category;
+
+  try {
+    const products = await productServices.findProductsByCategoryService(
+      category
+    );
+    response.send({ products });
+  } catch (err) {
+    response.status(404).send(err.message);
+  }
+}
+
+async function findProductsByNameController(request, response) {
+  const productName = request.query.name;
+
+  try {
+    const products = await productServices.findProductsByNameService(
+      productName
+    );
+    response.send({ products });
+  } catch (err) {
+    response.status(404).send(err.message);
+  }
+}
+
 export default {
   createProductController,
   updateProductController,
   deleteProductController,
   findAllProductsController,
+  findProductsByCategoryController,
+  findProductsByNameController,
 };

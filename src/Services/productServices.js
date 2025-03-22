@@ -62,9 +62,41 @@ async function findAllProductsService() {
   return productsInCurrency;
 }
 
+async function findProductsByCategoryService(category) {
+  const products = await productRepositories.findProductsByCategoryRepository(
+    category
+  );
+
+  // Para não passar undefined para o conversor.
+  if (!products) {
+    return [];
+  }
+
+  // Garante que estamos lidando com um array
+  const normalizedProducts = Array.isArray(products) ? products : [products];
+
+  return normalizedProducts.map(integerConverter);
+}
+
+async function findProductsByNameService(productName) {
+  const products = await productRepositories.findProductsByNameRepository(
+    productName
+  );
+
+  if (!products) {
+    return [];
+  }
+
+  const normalizedProducts = Array.isArray(products) ? products : [products];
+
+  return normalizedProducts.map(integerConverter);
+}
+
 export default {
   createProductService,
   updateProductService,
   deleteProductService,
   findAllProductsService,
+  findProductsByCategoryService,
+  findProductsByNameService,
 };

@@ -113,10 +113,54 @@ function findAllProductsRepository() {
   });
 }
 
+function findProductsByCategoryRepository(category) {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `
+        SELECT *
+        FROM products
+        WHERE category = ?
+      `,
+      [category],
+      (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+}
+
+function findProductsByNameRepository(productName) {
+  return new Promise((resolve, reject) => {
+    // db.get retorna apenas um resultado enquanto
+    // db.all retorna todos que coincidem com a busca.
+    db.all(
+      `
+        SELECT *
+        FROM products
+        WHERE name LIKE ?
+      `,
+      [`%${productName}%`],
+      (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+}
+
 export default {
   createProductRepository,
   findProductByIdRepository,
   updateProductRepository,
   deleteProductRepository,
   findAllProductsRepository,
+  findProductsByCategoryRepository,
+  findProductsByNameRepository,
 };
